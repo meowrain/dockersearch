@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}} - Docker Hub搜索</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐳</text></svg>">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <h1>🐳 Docker Hub 镜像搜索</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <h2>搜索 Docker 镜像</h2>
+            <div class="search-form">
+                <form action="/search" method="get">
+                    <input type="text" name="q" placeholder="输入镜像名称..." autofocus>
+                    <button type="submit">搜索</button>
+                </form>
+            </div>
+
+            <div class="search-tips">
+                <h3>热门镜像关键词:</h3>
+                <div class="keyword-list">
+                    <a href="/search?q=nginx" class="keyword-tag">nginx</a>
+                    <a href="/search?q=python" class="keyword-tag">python</a>
+                    <a href="/search?q=mysql" class="keyword-tag">mysql</a>
+                    <a href="/search?q=redis" class="keyword-tag">redis</a>
+                    <a href="/search?q=ubuntu" class="keyword-tag">ubuntu</a>
+                    <a href="/search?q=golang" class="keyword-tag">golang</a>
+                    <a href="/search?q=node" class="keyword-tag">node</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Docker Search Tool - 一个轻量级的Docker Hub镜像搜索工具</p>
+        </div>
+    </div>
+</body>
+
+</html>

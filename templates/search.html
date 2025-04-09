@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{.Title}} - "{{.Query}}" - Docker Hub搜索</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐳</text></svg>">
+</head>
+
+<body>
+    <header>
+        <div class="header-content">
+            <h1>🐳 Docker Hub 镜像搜索</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-form">
+            <form action="/search" method="get">
+                <input type="text" name="q" value="{{.Query}}" placeholder="输入镜像名称...">
+                <button type="submit">搜索</button>
+            </form>
+        </div>
+
+        <h2>"{{.Query}}" 的搜索结果</h2>
+        <div class="result-count">找到 {{.NumResults}} 个结果</div>
+
+        {{if gt .NumPages 1}}
+        <div class="pagination">
+            <div class="page-info">页码: {{.Page}}/{{.NumPages}}</div>
+            {{if gt .Page 1}}
+            <a href="/search?q={{.Query}}&page={{subtract .Page 1}}&limit={{.Limit}}" class="page-btn">上一页</a>
+            {{end}}
+            {{if lt .Page .NumPages}}
+            <a href="/search?q={{.Query}}&page={{add .Page 1}}&limit={{.Limit}}" class="page-btn">下一页</a>
+            {{end}}
+        </div>
+        {{end}}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>镜像名称</th>
+                    <th>描述</th>
+                    <th>星标数</th>
+                    <th>官方</th>
+                    <th>自动构建</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{range .Results}}
+                <tr>
+                    <td><a href="https://hub.docker.com/r/{{.Name}}" target="_blank">{{.Name}}</a></td>
+                    <td>{{if .Description}}{{truncate .Description 100}}{{else}}<em>无描述</em>{{end}}</td>
+                    <td>{{.StarCount}}</td>
+                    <td>{{if .IsOfficial}}<span class="official">[官方]</span>{{end}}</td>
+                    <td>{{if .IsAutomated}}<span class="automated">[自动]</span>{{end}}</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+
+        {{if gt .NumPages 1}}
+        <div class="pagination">
+            <div class="page-info">页码: {{.Page}}/{{.NumPages}}</div>
+            {{if gt .Page 1}}
+            <a href="/search?q={{.Query}}&page={{subtract .Page 1}}&limit={{.Limit}}" class="page-btn">上一页</a>
+            {{end}}
+            {{if lt .Page .NumPages}}
+            <a href="/search?q={{.Query}}&page={{add .Page 1}}&limit={{.Limit}}" class="page-btn">下一页</a>
+            {{end}}
+        </div>
+        {{end}}
+
+        <div class="footer">
+            <p>Docker Search Tool - 一个轻量级的Docker Hub镜像搜索工具</p>
+        </div>
+    </div>
+</body>
+
+</html>
