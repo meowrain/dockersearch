@@ -1,4 +1,4 @@
-module dockersearch
+module github.com/meowrain/dockersearch
 
 go 1.23.5
 

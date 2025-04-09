@@ -1,7 +1,6 @@
 package main
 
 import (
-	"dockersearch/templates"
 	"embed"
 	"encoding/json"
 	"fmt"
@@ -14,6 +13,7 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	"github.com/meowrain/dockersearch/utils"
 	"github.com/olekukonko/tablewriter"
 )
 
@@ -51,7 +51,7 @@ var tmpl *template.Template
 
 func initTemplates() {
 	// 获取模板函数映射
-	funcMap := templates.GetFuncMap()
+	funcMap := utils.GetFuncMap()
 
 	// 使用嵌入的模板文件
 	tmpl = template.Must(template.New("").Funcs(funcMap).ParseFS(templatesFS, "templates/*.html"))
